@@ -1049,6 +1049,7 @@ class validation:
 		self.validation = {} #key here is the name like HC_parent for hierarchically clustered parent
 		self.source_name = {}
 		self.cluster_name = {}
+		self.validation_name = {}  # here is a name of the validation metric
 		self.description = {} #here is a quick description of the validation metric
 
 	def validation_metrics_available(self):
@@ -1093,6 +1094,7 @@ class validation:
  
 		
 		self.validation[output_name] = v.validation
+		self.validation_name[output_name] = v.name
 		self.description[output_name] = v.description
 		self.source_name[output_name] = source_name
 		self.cluster_name[output_name] = cluster_name
