@@ -10,6 +10,15 @@ setup(
     url='https://github.com/NaegleLab/OpenEnsembles',
     packages=['openensembles'],
     install_requires=['pandas', 'numpy', 'sklearn', 'scipy', 'networkx', 'matplotlib', 'hdbscan'],
+    extras_require={
+        'dev': [
+            'black',
+            'flake8',
+            'pytest',
+            'pytest-cov',
+            'rope'
+        ]
+    },
     license='GNU General Public License v3',
     summary=DESC,
     long_description=DESC,
