@@ -45,7 +45,9 @@ class validation:
 	Attributes
 	----------
 	validation: float
-		Validation metric. NaN if error 
+		Validation metric. NaN if error
+	name: string
+		The name of the validation metric 
 	description: string
 		A description of the validation metric
 
@@ -59,6 +61,7 @@ class validation:
 		self.dataMatrix = data
 		self.classLabel = labels
 		self.validation = np.nan
+		self.name = ''
 		self.description = ''
 
 	def validation_metrics_available(self):
@@ -77,6 +80,7 @@ class validation:
 		"""
 		Ball-Hall Index is the mean of the mean dispersion across all clusters
 		"""
+		self.name = 'Ball-Hall'
 		self.description = 'Mean of the mean dispersions across all clusters'
 		sumTotal=0
 
@@ -99,6 +103,7 @@ class validation:
 
 	def Banfeld_Raferty(self):
 		""" Banfeld-Raferty index is the weighted sum of the logarithms of the traces of the variance-covariance matrix of each cluster"""
+		self.name = 'Banfeld-Raferty'
 		self.description = 'Weighted sum of the logarithms of the traces of the variance-covariance matrix of each cluster'
 		sumTotal=0
 		numCluster=max(self.classLabel)+1
@@ -127,6 +132,7 @@ class validation:
 		Silhouette: Compactness and connectedness combination that measures a ratio of within cluster distances to closest neighbors
 		outside of cluster. This uses sklearn.metrics version of the Silhouette.
 		"""
+		self.name = 'Silhouette'
 		self.description = 'Silhouette: A combination of connectedness and compactness that measures within versus to the nearest neighbor outside a cluster. A smaller value, the better the solution'
 
 		metric = metrics.silhouette_score(self.dataMatrix, self.classLabel, metric='euclidean')
@@ -138,6 +144,7 @@ class validation:
 		Baker-Hubert Gamma Index: A measure of compactness, based on similarity between points in a cluster, compared to similarity
 		with points in other clusters
 		"""
+		self.name = 'Baker-Hubert Gamma'
 		self.description = 'Gamma Index: a measure of compactness'
 		splus=0
 		sminus=0
@@ -174,6 +181,7 @@ class validation:
 		The determinant ratio index, a measure of connectedness
 		"""
 		#compute the attributes number and cluster number
+		self.name = 'Determinant Ratio'
 		self.description = 'Determinant ratio, a measure of connectedness'
 		attributes=len(self.dataMatrix[0])
 		xData=self.dataMatrix
@@ -208,6 +216,7 @@ class validation:
 		"""
 		The C-Index, a measure of compactness
 		"""
+		self.name = 'C-Index'
 		self.description = 'The C-Index, a measure of cluster compactness'
 		sw=0
 		nw=0
@@ -236,6 +245,7 @@ class validation:
 		"""
 		The G_plus index, the proportion of discordant pairs among all the pairs of distinct point, a measure of connectedness
 		"""
+		self.name = 'G+ Index'
 		self.description = "The G_plus index, a measure of connectedness"
 		sminus=0
 		pairDis=distance.pdist(self.dataMatrix)
@@ -262,6 +272,7 @@ class validation:
 		"""
 		The Ksq_DetW Index, a measure of connectedness
 		"""
+		self.name = 'Ksq_DetW'
 		self.description = "The Ksq_DetW index, a measure of connectedness"
 		#compute the attributes number and cluster number
 		attributes=len(self.dataMatrix[0])
@@ -288,6 +299,7 @@ class validation:
 		"""
 		The log determinant ratio index, a measure of connectedness
 		"""
+		self.name = 'Log_Det_Ratio'
 		self.description = "The log determinant ratio index, a measure of connectedness"
 		numObj=len(self.classLabel)
 		self.validation = numObj*math.log(self.det_ratio())
@@ -297,6 +309,7 @@ class validation:
 		"""
 		The log ss ratio, a measure of connectedness
 		"""
+		self.name = 'Log_SS_Ratio'
 		self.description = "The log ss ratio, a measure of connectedness"
 		bgss=0
 		wgss=0
@@ -324,6 +337,7 @@ class validation:
 		"""
 		The McClain-Rao Index, a measure of compactness
 		"""
+		self.name = 'McClain-Rao'
 		self.description = "The McClain-Rao Index, a measure of compactness"
 		sw=0
 		sb=0
@@ -357,6 +371,7 @@ class validation:
 		"""
 		The PBM index, a measure of compactness
 		"""
+		self.name = 'PBM'
 		self.description = "The PBM index, a measure of compactness"
 		ew=0
 		et=0
@@ -385,6 +400,7 @@ class validation:
 		"""
 		The Point-Biserial index, a measure of connectedness
 		"""
+		self.name = 'Point-Biserial'
 		self.description = "The Point-Biserial index, a measure of connectedness"
 		sw=0
 		sb=0
@@ -419,6 +435,7 @@ class validation:
 		"""
 		The Ratkowsky-Lance index, a measure of compactness
 		"""
+		self.name = 'Ratkowsky-Lance'
 		self.description = "The Ratkowsky-Lance index, a measure of compactness"
 		list_divide=[]
 		attributes=len(self.dataMatrix[0])
@@ -448,6 +465,7 @@ class validation:
 		"""
 		The Ray-Turi index, a measure of compactness
 		"""
+		self.name = 'Ray-Turi'
 		self.description = "The Ray-Turi index, a measure of compactness"
 		wgss=0
 		list_centers=[]
@@ -475,6 +493,7 @@ class validation:
 		"""
 		The Scott-Symons index, a measure of connectedness
 		"""
+		self.name = 'Scott-Symons'
 		self.description = "The Scott-Symons index, a measure of connectedness"
 		fitness=0
 		#compute the attributes number and cluster number
@@ -506,6 +525,7 @@ class validation:
 		"""
 		The Tau index, a measure of compactness
 		"""
+		self.name = 'Tau'
 		self.description = "The Tau index, a measure of compactness"
 		#compute nb,nw,nt
 		nw=0
@@ -550,6 +570,7 @@ class validation:
 		"""
 		The Trace_W index, a measure of connectedness
 		"""
+		self.name = 'Trace_W'
 		self.description = "The Trace_W index, a measure of connectedness"
 		wgss=0
 		numCluster=max(self.classLabel)+1
@@ -572,6 +593,7 @@ class validation:
 		"""
 		The Trace_WiB index, a measure of connectedness
 		"""
+		self.name = 'Trace_WiB'
 		self.description = "The Trace_WiB index, a measure of connectedness"
 		numCluster=max(self.classLabel)+1
 		attributes=len(self.dataMatrix[0])
@@ -611,6 +633,7 @@ class validation:
 		"""
 		The Wemmert-Gancarski index, the quotients of distances between the points and the barycenters of all clusters, a measure of compactness
 		"""
+		self.name = 'Wemmert-Gancarski'
 		self.description = "The Wemmert-Gancarski index, a measure of compactness"
 		sum=0
 		list_centers=[]
@@ -652,6 +675,7 @@ class validation:
 		standard deviation of all variables within each cluster. A measure of
 		connectedness.
 		"""
+		self.name = 'RMSSTD'
 		self.description = "The Root-Mean-Square Standard Deviation (RMSSTD), a measure of connectedness"
 		numCluster=max(self.classLabel)+1
 		attributes=len(self.dataMatrix[0])
@@ -675,6 +699,7 @@ class validation:
 		R-squared, a statistical measure of how close the data is to a fitted regression line.
 		A measure of compactness.
 		"""
+		self.name = 'R-squared'
 		self.description = "R-squared, a measure of compactness"
 		#compute the center of the dataset
 		dataCenter=np.mean(self.dataMatrix,0)
@@ -699,6 +724,7 @@ class validation:
 		"""
 		The Modified Hubert T Statistic, a measure of compactness.
 		"""
+		self.name = 'Modified Hubert T Statistic'
 		self.description = "The Modified Hubert T Statistic, a measure of compactness"
 		sumDiff=0
 		#compute the centers of all the clusters
@@ -729,6 +755,7 @@ class validation:
 		"""
 		The I index, a measure of compactness.
 		"""
+		self.name = 'I Index'
 		self.description = "The I Index, a measure of compactness."
 		normClusterSum=0
 		normDatasetSum=0
@@ -760,6 +787,7 @@ class validation:
 		"""
 		The Davies-Bouldin index, the average of all cluster similarities.
 		"""
+		self.name = 'Davies-Bouldin'
 		self.description = "The Davies-Bouldin index, the average of all cluster similarities"
 		numCluster=max(self.classLabel)+1
 		list_max=[]
@@ -797,6 +825,7 @@ class validation:
 		"""
 		The Xie-Beni index, a measure of compactness.
 		"""
+		self.name = 'Xie-Beni'
 		self.description = "The Xie-Beni index, a measure of compactness"
 		numCluster=max(self.classLabel)+1
 		numObject=len(self.classLabel)
@@ -831,6 +860,7 @@ class validation:
 		"""
 		The S_Dbw index, a measure of compactness.
 		"""
+		self.name = 'SDBW'
 		self.description = "The S_Dbw index, a measure of compactness"
 		sumDens=0
 		sumNormCluster=0
@@ -893,6 +923,7 @@ class validation:
 		"""
 		Dunn's index, a measure of cluster compactness
 		"""
+		self.name = 'Dunn\'s Index'
 		self.description = "Dunn's Index, a measure of compactness"
 		list_diam=[]
 		list_minDis=[]
