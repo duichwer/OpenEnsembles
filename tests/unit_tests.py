@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
+import os
 import os.path
 import time
 import unittest
@@ -29,9 +29,10 @@ import openensembles.clustering_algorithms as ca
 
 class TestFunctions(unittest.TestCase):
 
-    def setUp(self):
-        fileName = 'data_test.csv'
-        df = pd.DataFrame.from_csv(fileName)
+    def setUp(self):     
+        self.dir_path = os.path.dirname(os.path.realpath(__file__))
+        fileName = os.path.join(self.dir_path, 'data_test.csv')
+        df = pd.read_csv(fileName)
         x = [0, 5, 30]
         self.data = oe.data(df, x)
 
@@ -42,26 +43,26 @@ class TestFunctions(unittest.TestCase):
 
     def test_remove_metaData(self):
         fileName = 'data_test_meta.csv'
-        df = pd.DataFrame.from_csv(fileName)
+        df = pd.read_csv(fileName)
         x = [0, 5, 30]
         self.data = oe.data(df, x)
 
     def test_incorrect_setup(self):
-        fileName = 'data_test.csv'
-        df = pd.DataFrame.from_csv(fileName)
+        fileName = os.path.join(self.dir_path, 'data_test.csv')
+        df = pd.read_csv(fileName)
         x = [0, 5, 10, 30]
         self.assertRaises(ValueError, lambda: oe.data(df,x)) 
 
     def test_setup_stringX(self):
-        fileName = 'data_test.csv'
-        df = pd.DataFrame.from_csv(fileName)
+        fileName = os.path.join(self.dir_path, 'data_test.csv')
+        df = pd.read_csv(fileName)
         x = ['something', 5, 30]
         self.data = oe.data(df,x)
         self.assertListEqual([0,1,2], self.data.x['parent'])
 
     def test_setup_floats(self):
-        fileName = 'data_test.csv'
-        df = pd.DataFrame.from_csv(fileName)
+        fileName = os.path.join(self.dir_path, 'data_test.csv')
+        df = pd.read_csv(fileName)
         x = [0.0, 5.0, 30.0]
         self.data = oe.data(df,x)
         self.assertListEqual(x, self.data.x['parent'])
@@ -119,8 +120,8 @@ class TestFunctions(unittest.TestCase):
         self.assertRaises(ValueError, lambda: self.data.slice(['tx_not_there']))
 
     def test_dataObj_merge(self):
-        fileName = 'data_test.csv'
-        df = pd.DataFrame.from_csv(fileName)
+        fileName = os.path.join(self.dir_path, 'data_test.csv')
+        df = pd.read_csv(fileName)
         x = [0, 5, 30]
         data2 = oe.data(df, x)
 
@@ -367,6 +368,6 @@ class TestFunctions(unittest.TestCase):
             len_expected += 1
 
 
-
-
+if __name__ == '__main__':
+    unittest.main()
 
