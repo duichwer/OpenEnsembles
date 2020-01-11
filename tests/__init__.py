@@ -8,8 +8,7 @@ import os
 print(__file__)
 sys.path.insert(0, os.path.abspath(__file__ + "/../../"))
 
-#from . import unit_tests
-import unit_tests
+from . import unit_tests
 
 
 #import test_sequenceParameters
